@@ -10,10 +10,18 @@ No external libraries are needed.
 1. User can make a move using numbers. User enter desire number into console game will be place current player symbol corespoding location
 on game board ( game board is a list with length of 9 elements);
 
-2. Game Always starts from X.
+2. Game Always starts from X (Human).
+
+3. Add Computer to play ( Difficulty level : Mixer )
+p.s Should be easy to win.
+
+4. Can make improvements : Add functionality chose player symbol
+                           Adjust difficulty level
+                           Move from console to HTML page
 
 ## HOW TO RUN
-Move to inside main folder = cd main
+
+Move to inside main folder = cd main ( CMD + R  - MACos )
 run file main/main.py python main.py
 
 Use numbers to play in console
@@ -23,4 +31,3 @@ Use numbers to play in console
     7 8 9
 '''
 
-* User can use only number as input.
