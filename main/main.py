@@ -1,6 +1,5 @@
 import random
 
-
 empty_cell = '~'
 game_board = [empty_cell for x in range(0, 9)]
 current_player = "X"
@@ -85,7 +84,7 @@ def check_winner():
     global game_running
     if vertical(game_board) or horizontal(game_board) or diagonal(game_board):
         game_running = False
-        print_board(game_board) # Print board to display last move
+        print_board(game_board)  # Print board to display last move
         print(f'Winner is {current_player}')
 
 
@@ -100,31 +99,42 @@ def switch_player():
 
 # computer
 def computer(board):
-    corners = [0, 2, 6, 8]
-    center = 4
-    first_move = True
-    second_move = True
+    # computer can win
+    for x in range(9): # check empty cells
+        if board[x] == empty_cell: # if we found empty cell
+            board[x] = '0' # try to put 0
+            if check_winner(): # check will we win
+                return
+            else:
+                board[x] = '~' # if not win make empty
 
-    while current_player == '0':
+    # block human
+    for x in range(9):
+        if board[x] == empty_cell: # Ищем пустую клетку и если нашли
+            board[x] = 'X'  # Пробуем ставить X проверяем торию если мы поставим сюда Х выйграет человек если да то
+            # ставим 0
+            if check_winner():  # проверим победит ли человек
+                board[x] = '0'# блокируем
+                return
+            else:
+                board[x] = '~' # если не нужно делать блок возвращаем пустую клетку
+
+    # no win no occupy random cell
+    while current_player: #
         position = random.randint(0, 8)
-        random_conner = random.choice(corners)
-        # First move always corner
-        if empty_cell in board[random_conner] and first_move:
-            board[random_conner] = '0'
-            first_move = False
-            switch_player()
-        elif second_move and board[center] == empty_cell:
-            board[center] = '0'
-            switch_player()
-        else:
-            board[position] = empty_cell
+        if board[position] == empty_cell:
             board[position] = '0'
+            switch_player()
+            break
 
 
 # Run a  game
 while game_running:
     print_board(game_board)
-    user_move(game_board)
-    computer(game_board)
+    if current_player == "X":
+        user_move(game_board)
+
+    else:
+        computer(game_board)
     check_winner()
     check_tie()
